@@ -30,9 +30,25 @@ import RxSwift
 let bag = DisposeBag()
 
 Observable.from([1, 2, 3, 4, 5, 6, 7, 8, 9])
-   .subscribe { print($0) }
-   .disposed(by: bag)
+    .filter{ $0.isMultiple(of: 2)}
+    .take(5)
+    .subscribe { print($0) }
+    .disposed(by: bag)
 
+/*
+ ObservableType
+ 
+ Operators 특징
+ 1.대부분의 연산자는 Observable상에서 동작하고 새로운 Observable을 리턴한다.
+ 2.Observable을 리턴하기 대문에 두개 이상의 연산자를 호출할 수 있다.
+ 3.하지만 호출 순서에 따라서 다른 결과가 나오기 때문에 호출 순서에 항상 주의해야한다.
+ 
+ take Operator
+ 소스 옵져버블이 방출하는 요소중에 파라미터 수만큼 방출한다.
+ 처음 다섯개만 전달한다.
+ 연산자는 필요에 따라 얼마든지 사용할 수 있다.
+ 순서는 잘 사용해야한다.
+ */
 
 
 
