@@ -28,10 +28,39 @@ import RxSwift
 /*:
  # BehaviorSubject
  */
-
+/*
+ PublishSubject는 비어있는 생성자
+ 
+ */
 let disposeBag = DisposeBag()
 
 enum MyError: Error {
    case error
 }
 
+let p = PublishSubject<Int>()
+
+p.subscribe{
+    print("PublishSubject >> ", $0)
+}
+.disposed(by: disposeBag)
+
+let b = BehaviorSubject<Int>(value: 0) //Behavior 내부에 Next이벤트가 하나 만들어진다.
+
+b.subscribe{
+    print("Behaviorsubject 1 >> ", $0)
+}
+.disposed(by: disposeBag)
+
+b.onNext(1)
+
+b.subscribe{
+    print("Behaviorsubject 2 >> ", $0)
+}
+
+//b.onCompleted()
+b.onError(MyError.error)
+
+b.subscribe{
+    print("Behaviorsubject 3 >> ", $0)
+}

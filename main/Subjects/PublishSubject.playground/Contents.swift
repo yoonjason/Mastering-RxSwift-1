@@ -63,7 +63,7 @@ enum MyError: Error {
 //생성자를 호출할 때는 파라미터를 전달하지않는다. 비어있는 상태로 생성된다.
 //생성되는 시점에는 내부에 아무 이벤트가 저장되어있지않다.
 //Subject는 Observable인 동시에 Observer이다.
-
+//구독 이후에 전달되는 새로운 이벤트만 전달된다.
 let subject = PublishSubject<String>()
 
 subject.onNext("Hello")
