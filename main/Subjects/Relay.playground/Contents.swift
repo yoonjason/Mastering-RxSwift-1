@@ -27,7 +27,33 @@ import RxCocoa
 /*:
  # Relay
  */
-
+/*
+ PublishRelay ---------------- BehaviorRelay
+ PublishSubject                 BehaviorSubject
+ 
+ 가장 큰 차이는 Next이벤트만 전달한다
+ 
+ Source -Next-> Relay -Next-> Observer
+ 주로 UI이벤트 처리에 활용된다.
+ 
+ */
 let bag = DisposeBag()
 
+let prelay = PublishRelay<Int>() //빈것으로 생성하는 것은 PublishSubject와 동일하다.
+prelay.subscribe{ print("1: \($0)") }
+.disposed(by: bag)
+
+prelay.accept(2) //onNext를 사용하지않고, accept를 사용한다.
+
+let brelay = BehaviorRelay<Int>(value: 1)
+brelay.accept(2)
+
+brelay.subscribe(onNext : {
+    print("2 : \($0)")
+})
+.disposed(by: bag)
+
+brelay.accept(3)//즉시 Subscribe에게 전달
+
+print(brelay.value)
 

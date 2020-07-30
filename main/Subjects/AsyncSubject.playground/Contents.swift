@@ -27,10 +27,36 @@ import RxCocoa
 /*:
  # AsyncSubject
  */
-
+/*
+ 이벤트를 전달하는 시점에 차이가 있다.
+ 이전까지 배웠던 서브젝트로 이벤트가 전달되면 즉시 구독자게에 전달
+ Async 서브젝트로 컴플리티드 이벤트가 전달되기전까지 어떤 이벤트도 구독자에게 전달하지않음
+ 가장 최근에 전달된 Next 이벤트 하나를 전달한다.
+ */
 let bag = DisposeBag()
 
 enum MyError: Error {
    case error
 }
+
+
+let subject = AsyncSubject<Int>()
+
+subject
+    .subscribe(onNext : {
+        print($0)
+    })
+    .disposed(by: bag)
+
+subject.onNext(1)
+//여기까지 전달 안됨
+
+subject.onNext(2)
+subject.onNext(3)
+//여전히 전달안됨
+
+subject.onCompleted() //가장 최근 이벤트가 전달된다.
+subject.onError(MyError.error)//에러 이벤트가 전달되고 종료된다.
+
+
 

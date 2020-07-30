@@ -27,11 +27,40 @@ import RxSwift
 /*:
  # ReplaySubject
  */
-
+/*
+ 두 개 이상의 이벤트를 저장하고, 새로운 Observer로 전달
+ 지정된 버퍼 크기만큼 최신 이벤트를 저장하고 새로운 구독자에게 전달
+ 버퍼는 메모리 저장되기때문에, 메모리 사용량을 신경써야함.
+ 필요이상으로 큰 버퍼를 사용하면 안되겠음
+ */
 let disposeBag = DisposeBag()
 
 enum MyError: Error {
    case error
 }
 
+let rs = ReplaySubject<Int>.create(bufferSize: 3)
 
+(1...10).forEach{
+    rs.onNext($0)
+}
+
+rs.subscribe(onNext:{
+    print("Observer 1 >> ", $0)
+    }).disposed(by: disposeBag)
+
+rs.subscribe(onNext:{
+    print("Observer 2 >> ", $0)
+}).disposed(by: disposeBag)
+
+rs.onNext(11)
+
+rs.subscribe(onNext:{
+    print("Observer 3 >> ", $0)
+}).disposed(by: disposeBag)//1부터 10까지였던 것이 11까지 늘어났기때문에, 9,10,11이 전달됨
+
+rs.onCompleted()
+
+rs.subscribe(onNext:{
+    print("Observer 4 >> ", $0)
+}).disposed(by: disposeBag)

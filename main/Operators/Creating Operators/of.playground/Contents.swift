@@ -26,11 +26,18 @@ import RxSwift
 /*:
  # of
  */
+/*
+ 
+ 
+ */
+
 
 let disposeBag = DisposeBag()
 let apple = "🍏"
 let orange = "🍊"
 let kiwi = "🥝"
+
+let fruits = ["🍏", "🍎", "🍋", "🍓", "🍇"]
 
 Observable.of(apple, orange, kiwi)
    .subscribe { element in print(element) }
@@ -39,6 +46,12 @@ Observable.of(apple, orange, kiwi)
 Observable.of([1, 2], [3, 4], [5, 6])
    .subscribe { element in print(element) }
    .disposed(by: disposeBag)
+
+Observable.of(fruits)
+    .subscribe(onNext : {
+        elem in print(elem)
+    })
+.disposed(by: disposeBag)
 
 
 

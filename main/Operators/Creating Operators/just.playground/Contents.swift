@@ -26,9 +26,14 @@ import RxSwift
 /*:
  # just
  */
-
+/*
+ Just 생성하는 Observable은 파라미터로 전달한 요소를 그대로 방출한다.
+ 
+ 
+ */
 let disposeBag = DisposeBag()
 let element = "😀"
+
 
 Observable.just(element)
    .subscribe { event in print(event) }
@@ -37,6 +42,12 @@ Observable.just(element)
 Observable.just([1, 2, 3])
    .subscribe { event in print(event) }
    .disposed(by: disposeBag)
+
+Observable.just(["2","4","6"])
+    .subscribe(onNext : {
+        event in print(event)
+    })
+    .disposed(by: disposeBag)
 
 
 

@@ -26,12 +26,17 @@ import RxSwift
 /*:
  # range
  */
-
+/*
+  반드시 정수를 전달해야한다.
+ 
+ */
 let disposeBag = DisposeBag()
 
 Observable.range(start: 1, count: 10)
    .subscribe { print($0) }
    .disposed(by: disposeBag)
+
+Observable.range(start: 1, count: 20)
 
 
 

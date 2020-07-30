@@ -27,6 +27,14 @@ import RxSwift
  # from
  */
 
+/*
+ Just : 하나의 요소를 방출하는 Observable을 생성할 때
+ Of : 두 개 이상의 요소를 방출해야 한다면 Observable
+ -- 항목을 그대로 방출된다.
+ 배열의 순서를 하나씩 방출하는 Observable이 필요하다면
+ From : 
+ */
+
 let disposeBag = DisposeBag()
 let fruits = ["🍏", "🍎", "🍋", "🍓", "🍇"]
 
@@ -34,6 +42,11 @@ Observable.from(fruits)
    .subscribe { element in print(element) }
    .disposed(by: disposeBag)
 
+Observable.from([[1, 2], [3, 4], [5, 6]])
+    .subscribe(onNext : { elem in
+        print(elem)
+    })
+    .disposed(by: disposeBag)
 
 
 
