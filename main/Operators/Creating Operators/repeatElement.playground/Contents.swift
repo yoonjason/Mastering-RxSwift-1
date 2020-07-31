@@ -27,8 +27,21 @@ import RxSwift
  # repeatElement
  */
 
+/*
+ 동일한 요소를 반복적으로 방출하는 요소
+ 무한 루프가 생성된다.
+ 방출되는 요소를 제한해주는 것이 중요하다. (take를 써야한다.)
+ 
+ */
 let disposeBag = DisposeBag()
 let element = "❤️"
+
+Observable.repeatElement(element)
+    .take(7)
+    .subscribe(onNext:{
+        print($0)
+    })
+    .disposed(by: disposeBag)
 
 
 

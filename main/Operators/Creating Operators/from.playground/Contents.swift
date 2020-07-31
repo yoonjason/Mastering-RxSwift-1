@@ -30,9 +30,8 @@ import RxSwift
 /*
  Just : 하나의 요소를 방출하는 Observable을 생성할 때
  Of : 두 개 이상의 요소를 방출해야 한다면 Observable
- -- 항목을 그대로 방출된다.
- 배열의 순서를 하나씩 방출하는 Observable이 필요하다면
- From : 
+ -- 항목을 그대로 방출된다.배열을 입력하면 배열이 방출된다.
+ From : 배열의 순서를 하나씩 방출하는 Observable
  */
 
 let disposeBag = DisposeBag()

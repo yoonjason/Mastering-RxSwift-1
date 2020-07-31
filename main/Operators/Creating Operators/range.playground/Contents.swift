@@ -37,6 +37,8 @@ Observable.range(start: 1, count: 10)
    .disposed(by: disposeBag)
 
 Observable.range(start: 1, count: 20)
+    .subscribe{print($0)}
+    .disposed(by: disposeBag)
 
 
 

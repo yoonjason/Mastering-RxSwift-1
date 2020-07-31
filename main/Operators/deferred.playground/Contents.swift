@@ -27,12 +27,42 @@ import RxSwift
  # deferred
  */
 
+/*
+ 특정 조건에 따라서 Observable을 생성할 수 있다.
+ Observable을 리턴하는 클로저를 파라미터로 받는다.
+ return형을 추론할 수 없다고 하면 타입 어노테이션을 추가해주면 된다.
+ 어느타입인지 정해라
+ : Observable<String>
+ 이렇게
+ 
+ */
+
 let disposeBag = DisposeBag()
 let animals = ["🐶", "🐱", "🐹", "🐰", "🦊", "🐻", "🐯"]
 let fruits = ["🍎", "🍐", "🍋", "🍇", "🍈", "🍓", "🍑"]
 var flag = true
 
+let factory : Observable<String> = Observable.deferred{
+    flag.toggle() //기존값을 뒤집는다.
+    
+    if flag {
+        return Observable.from(animals)
+    }else {
+        return Observable.from(fruits)
+    }
+}
 
+factory
+    .subscribe {print($0)}
+    .disposed(by: disposeBag)
+
+factory
+.subscribe {print($0)}
+.disposed(by: disposeBag)
+
+factory
+.subscribe {print($0)}
+.disposed(by: disposeBag)
 
 
 
