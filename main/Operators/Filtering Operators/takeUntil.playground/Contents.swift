@@ -26,7 +26,32 @@ import RxSwift
 /*:
  # takeUntil
  */
-
+/*
+ Observable타입을 파라미터로 받는다. Observable을 파라미터로 받는다.
+ trigger이 되어야 subject도 요소를 방출한다.
+ 
+ */
 let disposeBag = DisposeBag()
 let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
+let subject = PublishSubject<Int>()
+let trigger = PublishSubject<Int>()
+
+subject.takeUntil(trigger)
+    .subscribe{print($0)}
+.disposed(by: disposeBag)
+
+subject.onNext(1)
+subject.onNext(2)
+trigger.onNext(0)
+subject.onNext(3)
+/*
+ 
+  트리거에서 요소를 방출하면 completed이벤트가 호출된다.
+ 
+ next(1)
+ next(2)
+ completed
+ trigger이 호출되었기때문에 completed이벤트가 호출되어 더 이상 요소가 전달되지않는다.
+ 
+ */

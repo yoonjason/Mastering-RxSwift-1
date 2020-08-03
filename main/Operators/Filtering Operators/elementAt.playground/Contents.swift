@@ -26,13 +26,22 @@ import RxSwift
 /*:
  # elementAt
  */
-
+/*
+  Observable, Observer, Subscribe
+ 
+ 정수 인덱스를 파라미터로 받아서 Observable을 리턴
+ 연산자가 리턴하는 Observable 하나의 요소만 방출한다.
+ 
+ */
 let disposeBag = DisposeBag()
 let fruits = ["🍏", "🍎", "🍋", "🍓", "🍇"]
 
 
 
-
+Observable.from(fruits)
+    .elementAt(1)
+    .subscribe{print($0)}
+    .disposed(by: disposeBag)
 
 
 

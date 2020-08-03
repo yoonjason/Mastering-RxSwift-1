@@ -26,11 +26,27 @@ import RxSwift
 /*:
  # ignoreElements
  */
+/*
+ Observable, Observer, Subscribe
+ 
+ */
 
+/*
+Observable이 방출하는 Next Event를 Filtering하고 Error Completed만 방출한다.
+ 
+ , Observer, Subscribe
+  파라미터를 받지않는다.
+ asCompletable로 리턴, completed, error만 전달
+ 작업의 성공과 실패에 관심이 있을 때 사용한다.
+ 
+*/
 let disposeBag = DisposeBag()
 let fruits = ["🍏", "🍎", "🍋", "🍓", "🍇"]
 
-
+Observable.from(fruits)
+    .ignoreElements()
+    .subscribe{print($0)}
+    .disposed(by: disposeBag)
 
 
 

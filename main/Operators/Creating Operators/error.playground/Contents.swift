@@ -27,13 +27,20 @@ import RxSwift
  # error
  */
 
+/*
+ Error이벤트를 전달하고 종료할 때 사용한다.
+ 
+ */
+
 let disposeBag = DisposeBag()
 
 enum MyError: Error {
    case error
 }
 
-
+Observable<Void>.error(MyError.error)
+    .subscribe{ print($0)}
+    .disposed(by: disposeBag)
 
 
 

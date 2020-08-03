@@ -26,6 +26,25 @@ import RxSwift
 /*:
  # skipUntil
  */
-
+/*
+ Observable, Observer, Subscribe
+ Observable 타입을 파라미터로 받는다.다른 Observable을 파라미터로 받는다.
+ Observable이 넥스트 이벤트를 전달하기 전까지 원본 Observable이 전달하는 이벤트를 무시한ㄷ.
+ 트리거라고 불리기도 한다.
+ */
 let disposeBag = DisposeBag()
+
+let subject = PublishSubject<Int>()
+let trigger = PublishSubject<Int>()
+
+subject.skipUntil(trigger)
+    .subscribe{print($0)}
+    .disposed(by: disposeBag)
+
+//trigger가 값을 방출하기 전까지 subject는 값을 방출해줘도 방출되지않는다.
+subject.onNext(1)
+
+trigger.onNext(0)
+
+subject.onNext(2)
 

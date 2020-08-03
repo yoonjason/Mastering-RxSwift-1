@@ -26,9 +26,33 @@ import RxSwift
 /*:
  # map
  */
-
+/*
+Observable, Observer, Subscribe
+ 
+ 
+ */
 let disposeBag = DisposeBag()
 let skills = ["Swift", "SwiftUI", "RxSwift"]
 
 
+//Observable.map{}
+Observable.from(skills)
+    //.map{ "Hello, \($0) " }
+    .map{$0.count}
+    .subscribe{print($0)}
+    .disposed(by: disposeBag)
 
+
+
+/*
+ next(Hello, Swift )
+ next(Hello, SwiftUI )
+ next(Hello, RxSwift )
+ completed
+
+ next(5)
+ next(7)
+ next(7)
+ completed
+ 
+ */

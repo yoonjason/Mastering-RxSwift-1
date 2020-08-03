@@ -26,11 +26,17 @@ import RxSwift
 /*:
  # empty
  */
-
+/*
+ Next이벤트를 전달하지않는다.
+ 요소의 형식은 중요하지않다.
+ Obserber가 아무런 동작없이 종료해야할 때 구현한다.
+ */
 let disposeBag = DisposeBag()
 
 
-
+Observable<Void>.empty()
+    .subscribe{print($0)}
+    .disposed(by: disposeBag)
 
 
 

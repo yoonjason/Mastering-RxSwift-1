@@ -27,6 +27,20 @@ import RxSwift
  # throttle
  */
 
+/*
+ 지정된 주기동안
+ 
+ */
+/*
+throttle NExt이벤트를 지정된 주기마다 구독자에게 전달한다 -> 짧은 시간 동안 반복되는 탭 이벤트, 델리게이트 메시지에 이용
+debounce - next이벤트가 전달된 다음 지정된 시간이 경과하기까지 다른 이벤트가 전달되지 않는다면, 마지막으로 전달된 이벤트를 구독자에게 전달한다. -> 검색할 때 이동
+키워드를 입력할 때마다 네트워크 통신을 해야한다.
+문자를 연속해서 입력하게되면 검색하지 않고 있다가, 문자가 다 입력되면 검색이 된다.
+
+
+
+
+*/
 let disposeBag = DisposeBag()
 
 let buttonTap = Observable<String>.create { observer in
@@ -50,8 +64,10 @@ let buttonTap = Observable<String>.create { observer in
 }
 
 
-buttonTap   
+buttonTap
+    .throttle(.milliseconds(1000), scheduler: MainScheduler.instance)
    .subscribe { print($0) }
    .disposed(by: disposeBag)
 
 //: [Next](@next)
+

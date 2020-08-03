@@ -26,8 +26,34 @@ import RxSwift
 /*:
  # distinctUntilChanged
  */
-
+/*
+ Observable, Observer, Subscribe
+ 
+ 파라미터가 없고 원본 옵져버블이 전달되는 순서대로 비교한다음 같으면 방출하지않는다.
+ 
+ */
 let disposeBag = DisposeBag()
 let numbers = [1, 1, 3, 2, 2, 3, 1, 5, 5, 7, 7, 7]
 
+Observable.from(numbers)
+    .distinctUntilChanged()
+    .subscribe{print($0)}
+    .disposed(by: disposeBag)
+
+/*
+ 배열은 1이 연속적으로 저장되어있다.
+ distinctUntilChanged 두번째 요소인 1은 무시한다.
+ 동일한 요소가 연속적으로 방출되지않는다면 그대로 방출한다.
+ 단지 이전 값과 동일한 값인지 확인한다.
+ 
+ next(1)
+ next(3)
+ next(2)
+ next(3)
+ next(1)
+ next(5)
+ next(7)
+ completed
+ 
+ */
 
