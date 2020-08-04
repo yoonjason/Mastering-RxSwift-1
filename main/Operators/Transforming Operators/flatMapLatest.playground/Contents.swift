@@ -26,7 +26,9 @@ import RxSwift
 /*:
  # flatMapLatest
  */
-
+/*
+ 
+ */
 let disposeBag = DisposeBag()
 
 let a = BehaviorSubject(value: 1)
@@ -35,7 +37,24 @@ let b = BehaviorSubject(value: 2)
 let subject = PublishSubject<BehaviorSubject<Int>>()
 
 subject
-   .flatMap { $0.asObservable() }
+//   .flatMap { $0.asObservable() }
+    .flatMapLatest{ $0.asObservable() }
    .subscribe { print($0) }
    .disposed(by: disposeBag)
+
+subject.onNext(a)
+a.onNext(11)
+//가장 최근 것만 방출해준다. a 여기까진 a가 마지막임
+
+subject.onNext(b)
+
+a.onNext(111)
+//가장 최근에 되어있는 요소만 방출한다.
+
+subject.onNext(a)
+//가장 최근것은 a이다.
+
+b.onNext(222)
+//따라서 b는 전달되지 않는다.
+a.onNext(555)
 

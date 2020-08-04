@@ -44,6 +44,7 @@ let subject = PublishSubject<BehaviorSubject<Int>>()
 
 subject
     .flatMap{ $0.asObservable() }
+//    .flatMapFirst{$0.asObservable()}
     .subscribe{
         print($0)
 }

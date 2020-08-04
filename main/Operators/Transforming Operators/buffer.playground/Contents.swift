@@ -26,8 +26,42 @@ import RxSwift
 /*:
  # buffer
  */
-
+/*
+ 특정 주기동안 옵져버블이 방출하는 항목을 수집하고 하나의 배열로 리턴한다.
+ Controlled buffering이라고 한다.
+ - parameter timeSpan: Maximum time length of a buffer. 지정한 시간마다 수집되어있는 항목을 배출한다. 시간이 경과되지않아도 방출할 수 있다.
+ - parameter count: Maximum element count of a buffer. 수집할 항목의 숫자이다. 최대 숫자이다.
+ - parameter scheduler: Scheduler to run buffering timers on.
+ - returns: An observable sequence of buffers. //배열에 담아서 리턴한다.
+ */
 let disposeBag = DisposeBag()
+
+Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
+    .buffer(timeSpan: .seconds(5), count: 5, scheduler: MainScheduler.instance)
+    .take(5)
+    .subscribe{ print($0) }
+    .disposed(by: disposeBag)
+
+
+/*
+ 버퍼시간 2초
+ next([0])
+ next([1, 2, 3])
+ next([4, 5])
+ next([6, 7])
+ next([8, 9])
+ completed
+ 
+ 버퍼시간 5초
+ next([0, 1, 2])
+ next([3, 4, 5])
+ next([6, 7, 8])
+ next([9, 10, 11])
+ next([12, 13, 14])
+ completed
+
+ 
+ */
 
 
 

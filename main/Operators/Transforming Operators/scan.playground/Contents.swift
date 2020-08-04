@@ -28,4 +28,18 @@ import RxSwift
  */
 
 let disposeBag = DisposeBag()
+/*
+ 기본 값으로 연산을 시작
+ 원본이 방출하는 항목의 수와 구독자가 받는 항목의 수가 동일하다.
+ 
+ */
 
+Observable.range(start: 1, count: 10)
+.scan(0, accumulator: +)
+    .subscribe{print($0)}
+.disposed(by: disposeBag)
+
+/*
+ 
+ 
+ */

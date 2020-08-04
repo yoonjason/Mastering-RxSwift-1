@@ -35,7 +35,8 @@ let b = BehaviorSubject(value: 2)
 let subject = PublishSubject<BehaviorSubject<Int>>()
 
 subject
-   .flatMap { $0.asObservable() }
+//   .flatMap { $0.asObservable() }
+    .flatMapFirst{ $0.asObservable() }
    .subscribe { print($0) }
    .disposed(by: disposeBag)
 
@@ -46,3 +47,5 @@ a.onNext(11)
 b.onNext(22)
 b.onNext(222)
 a.onNext(111)
+
+//첫번째 등록된 것만 전달된다. 여기서는 a만 전달되고 b는 전달되지않는다.
